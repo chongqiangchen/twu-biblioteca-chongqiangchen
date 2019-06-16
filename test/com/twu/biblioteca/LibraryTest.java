@@ -34,14 +34,20 @@ public class LibraryTest {
         ArrayList<Book> books = new ArrayList<Book>();
         Book book1 = new Book("JAVA","Tom","2019","001");
         Book book2 = new Book("C++","Bob","2018","002");
+        Book book3 = new Book("C++","Bob","2018","003");
+        Book book4 = new Book("C++","Bob","2018","004");
+
         books.add(book1);
         books.add(book2);
+        books.add(book3);
+        books.add(book4);
         ArrayList<String> menus = new ArrayList<String>();
         menus.add("List of books");
 
         library = new Library(books,menus);
 
         library.checkOutBook("002");
+        library.checkOutBook("003");
     }
 
 //    @Test
@@ -59,16 +65,26 @@ public class LibraryTest {
 
     @Test
     public void theOneSelectCheckOutBookIsSuccess(){
-//        library.handleMenu("2");
         library.checkOutBook("001");
         assertThat(getOutput(),containsString("Thank you! Enjoy the book!"));
     }
 
     @Test
     public void theOneSelectCheckOutBookIsFail(){
-//        library.handleMenu("3");
         library.checkOutBook("002");
         assertThat(getOutput(),containsString("Sorry, that book is not available."));
+    }
+
+    @Test
+    public void theOneSelectReturnBackBookIsSuccess(){
+        library.returnBackBook("003");
+        assertThat(getOutput(),containsString("Thank you for returning the book"));
+    }
+
+    @Test
+    public void theOneSelectReturnBackBookIsFail(){
+        library.returnBackBook("004");
+        assertThat(getOutput(),containsString("That is not a valid book to return."));
     }
 
     @Test
