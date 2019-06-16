@@ -8,18 +8,19 @@ public class BibliotecaApp {
         User user = new User();
 
         ArrayList<Book> books = new ArrayList<Book>();
-        Book book1 = new Book("Java","Tom","2019");
-        Book book2 = new Book("C++","Bob","2018");
+        Book book1 = new Book("Java","Tom","2019","001");
+        Book book2 = new Book("C++","Bob","2018","002");
         books.add(book1);
         books.add(book2);
 
         ArrayList<String> menus = new ArrayList<String>();
         menus.add("List of books");
+        menus.add("Check out a book");
+        menus.add("Return back a book");
 
         Library library = new Library(books,menus);
 
         user.welcomeMessage();
         library.start();
-//        library.displayAllBooks();
     }
 }

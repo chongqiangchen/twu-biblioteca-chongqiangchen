@@ -25,7 +25,7 @@ public class Library {
             index++;
             System.out.println(index + ". " + menuItem);
         }
-        input = scanner.next();
+        input = setString();
         handleMenu(input);
         displayMenu();
     }
@@ -33,6 +33,10 @@ public class Library {
     public void handleMenu(String input){
         if ("1".equals(input)) {
             displayAllBooks();
+        }else if("2".equals(input)){
+            checkOutBook(setString());
+        }else if("3".equals(input)){
+            returnBackBook(setString());
         } else if ("q".equals(input)) {
             System.out.println("Goodbye!");
             System.exit(0);
@@ -48,5 +52,34 @@ public class Library {
             index++;
             System.out.println(index+"、 "+ book.getBookInfo());
         }
+    }
+    public boolean checkOutBook(String bookId){
+        for (Book book:this.books){
+            if(book.getId().equals(bookId) && book.isAvailable()){
+                book.checkOut();
+                System.out.println("Thank you! Enjoy the book!");
+                return true;
+            }
+        }
+        System.out.println("Sorry, that book is not available.");
+        return false;
+    }
+
+    public boolean returnBackBook(String bookId){
+        for (Book book:this.books){
+            if(book.getId().equals(bookId) && !book.isAvailable()){
+                book.returnBack();
+                System.out.println("Thank you for returning the book.");
+                return true;
+            }
+        }
+
+        System.out.println("That is not a valid book to return.");
+        return false;
+    }
+
+    private String setString(){
+        String input = scanner.next();
+        return input;
     }
 }
