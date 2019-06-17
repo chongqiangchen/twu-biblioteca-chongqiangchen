@@ -56,6 +56,7 @@ public class LibraryTest {
 
         library.checkOutBook("002");
         library.checkOutBook("003");
+        library.checkOutMovie("002");
     }
 
 //    @Test
@@ -100,5 +101,18 @@ public class LibraryTest {
         library.displayAllMovies();
         assertThat(getOutput(),containsString("movie1"));
     }
+
+    @Test
+    public void theOneSelectCheckOutMovieIsSuccess(){
+        library.checkOutMovie("001");
+        assertThat(getOutput(),containsString("Thank you! Enjoy the movie!"));
+    }
+
+    @Test
+    public void theOneSelectCheckOutMovieIsFail(){
+        library.checkOutMovie("002");
+        assertThat(getOutput(),containsString("Sorry, that movie is not available."));
+    }
+
 
 }

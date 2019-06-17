@@ -92,7 +92,15 @@ public class Library {
     }
 
     public boolean checkOutMovie(String movieId){
-        return true;
+        for (Movie movie:this.movies){
+            if(movie.getId().equals(movieId) && movie.isAvailable()){
+                movie.checkOut();
+                System.out.println("Thank you! Enjoy the movie!");
+                return true;
+            }
+        }
+        System.out.println("Sorry, that movie is not available.");
+        return false;
     }
 
     public boolean returnBackMovie(String movieId){
