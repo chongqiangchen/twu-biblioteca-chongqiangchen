@@ -6,32 +6,35 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 
-import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-public class EnterTest {
+public class LoginTest {
 
     private final PrintStream systemOut = System.out;
     private ByteArrayOutputStream testOut;
 
-    private User user = new User();
+    private Enter enter;
+    private ArrayList<User> users = new ArrayList<User>();
 
     @Before
     public void setUpOutput() {
         testOut = new ByteArrayOutputStream();
         System.setOut(new PrintStream(testOut));
     }
+    @Before
+    public void initialData(){
+        User user1 = new User("000-1111","12345","chongqiangchen@gmail.com","17855805070");
+        users.add(user1);
+
+        enter = new Enter(users);
+    }
 
     private String getOutput() {
         return testOut.toString();
-    }
-
-    @Test
-    public void theOneWhereWeGetAWelcomeMessage() {
-        user.welcomeMessage();
-        assertThat(getOutput(), containsString("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!”"));
     }
 
 

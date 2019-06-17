@@ -14,6 +14,7 @@ import static org.junit.Assert.assertThat;
 public class LibraryTest {
 
     private Library library;
+    private User user1;
 
     private final PrintStream systemOut = System.out;
     private ByteArrayOutputStream testOut;
@@ -52,18 +53,24 @@ public class LibraryTest {
         movies.add(movie1);
         movies.add(movie2);
 
-        library = new Library(menus,books,movies);
+        ArrayList<User> users = new ArrayList<User>();
+        user1 = new User("000-1111","12345","ccc","17855805070");
+        users.add(user1);
 
-        library.checkOutBook("002");
-        library.checkOutBook("003");
-        library.checkOutMovie("002");
+        Enter enter = new Enter(users);
+
+        library = new Library(menus,books,movies,enter);
+
+        library.checkOutBook("002",user1);
+        library.checkOutBook("003",user1);
+        library.checkOutMovie("002",user1);
     }
 
-//    @Test
-//    public void theOneWhereTheMenusAreShowed(){
-//        library.displayMenu();
-//        assertThat(getOutput(),containsString("List of books"));
-//    }
+    @Test
+    public void theOneWhereWeGetAWelcomeMessage() {
+        library.welcomeMessage();
+        assertThat(getOutput(), containsString("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!”"));
+    }
 
     @Test
     public void theOneSelectListOfBook(){
@@ -74,13 +81,13 @@ public class LibraryTest {
 
     @Test
     public void theOneSelectCheckOutBookIsSuccess(){
-        library.checkOutBook("001");
+        library.checkOutBook("001",user1);
         assertThat(getOutput(),containsString("Thank you! Enjoy the book!"));
     }
 
     @Test
     public void theOneSelectCheckOutBookIsFail(){
-        library.checkOutBook("002");
+        library.checkOutBook("002",user1);
         assertThat(getOutput(),containsString("Sorry, that book is not available."));
     }
 
@@ -104,15 +111,14 @@ public class LibraryTest {
 
     @Test
     public void theOneSelectCheckOutMovieIsSuccess(){
-        library.checkOutMovie("001");
+        library.checkOutMovie("001",user1);
         assertThat(getOutput(),containsString("Thank you! Enjoy the movie!"));
     }
 
     @Test
     public void theOneSelectCheckOutMovieIsFail(){
-        library.checkOutMovie("002");
+        library.checkOutMovie("002",user1);
         assertThat(getOutput(),containsString("Sorry, that movie is not available."));
     }
-
 
 }

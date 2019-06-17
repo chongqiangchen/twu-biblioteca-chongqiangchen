@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class BibliotecaApp {
 
     public static void main(String[] args) {
-        User user = new User();
+//        User user = new User();
 
         ArrayList<Book> books = new ArrayList<Book>();
         Book book1 = new Book("Java","Tom","2019","001");
@@ -27,12 +27,19 @@ public class BibliotecaApp {
         menus.add("4、Check out a movie");
         menus.add("5、Return back a book");
         menus.add("6、Return back a movie");
-        menus.add("7、Exit");
+        menus.add("7、Show user info");
+        menus.add("8、Exit");
+
         menus.add("------------------------");
 
-        Library library = new Library(menus,books,movies);
+        ArrayList<User> users = new ArrayList<User>();
+        users.add(new User("000-1111","12345","chongqiangchen@gmail.com","17855805070"));
 
-        user.welcomeMessage();
+        Enter enter = new Enter(users);
+
+        Library library = new Library(menus,books,movies,enter);
+
+        library.welcomeMessage();
         library.start();
     }
 }

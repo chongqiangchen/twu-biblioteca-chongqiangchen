@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 public class LibraryItem {
     private String Id;
+    private String ownerId;
     private boolean isAvailable;
 
     public LibraryItem(String Id){
@@ -14,10 +15,12 @@ public class LibraryItem {
     public Object getId() {
         return this.Id;
     }
-    public void checkOut(){
+    public void checkOut(User user){
+        this.ownerId = user.getUserName();
         this.isAvailable = false;
     }
     public void returnBack(){
+        this.ownerId = null;
         this.isAvailable = true;
     }
 

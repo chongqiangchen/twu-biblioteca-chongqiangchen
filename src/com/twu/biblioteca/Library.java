@@ -9,15 +9,21 @@ public class Library {
     private ArrayList<Movie> movies;
 
     private Scanner scanner = new Scanner(System.in);
+    private Enter enter;
 
-    public Library(ArrayList<String> menus,ArrayList<Book> books,ArrayList<Movie> movies){
+    public Library(ArrayList<String> menus,ArrayList<Book> books,ArrayList<Movie> movies,Enter enter){
         this.menus = menus;
         this.books = books;
         this.movies = movies;
+        this.enter = enter;
+
     }
 
     public void start(){
         displayMenu();
+    }
+    public void welcomeMessage(){
+        System.out.println("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!”");
     }
 
     public void displayMenu(){
@@ -36,20 +42,38 @@ public class Library {
         }else if("2".equals(input)){
             displayAllMovies();
         }else if("3".equals(input)){
-            checkOutBook(setString());
+            if(enter.isLogin()){
+                checkOutBook(setString(),enter.getCurUser());
+            }else {
+                System.out.println("You should login before check out the book!");
+                enter.login();
+            }
         }else if("4".equals(input)){
-            checkOutMovie(setString());
+            checkOutMovie(setString(),enter.getCurUser());
         }else if("5".equals(input)){
-            returnBackBook(setString());
+            if(enter.isLogin()){
+                returnBackBook(setString());
+            }else {
+                System.out.println("You should login before return back the book!");
+                enter.login();
+            }
         }else if("6".equals(input)){
             returnBackMovie(setString());
         } else if ("7".equals(input)) {
+            if(enter.isLogin()){
+               System.out.println( enter.getUserInfo());
+            }else {
+                System.out.println("You should login before show your info!");
+                enter.login();
+            }
+        }  else if ("8".equals(input)) {
             System.out.println("Goodbye!");
             System.exit(0);
         } else {
             System.out.println("Please select a valid option!");
         }
     }
+
 
     public void displayAllBooks(){
         int index = 0;
@@ -58,10 +82,10 @@ public class Library {
             System.out.println(index+"、 "+ book.getBookInfo());
         }
     }
-    public boolean checkOutBook(String bookId){
+    public boolean checkOutBook(String bookId,User curUser){
         for (Book book:this.books){
             if(book.getId().equals(bookId) && book.isAvailable()){
-                book.checkOut();
+                book.checkOut(curUser);
                 System.out.println("Thank you! Enjoy the book!");
                 return true;
             }
@@ -91,10 +115,10 @@ public class Library {
         }
     }
 
-    public boolean checkOutMovie(String movieId){
+    public boolean checkOutMovie(String movieId,User curUser){
         for (Movie movie:this.movies){
             if(movie.getId().equals(movieId) && movie.isAvailable()){
-                movie.checkOut();
+                movie.checkOut(curUser);
                 System.out.println("Thank you! Enjoy the movie!");
                 return true;
             }
