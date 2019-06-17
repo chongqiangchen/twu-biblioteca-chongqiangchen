@@ -31,6 +31,10 @@ public class LibraryTest {
 
     @Before
     public void initialData(){
+
+        ArrayList<String> menus = new ArrayList<String>();
+        menus.add("List of books");
+
         ArrayList<Book> books = new ArrayList<Book>();
         Book book1 = new Book("JAVA","Tom","2019","001");
         Book book2 = new Book("C++","Bob","2018","002");
@@ -41,10 +45,14 @@ public class LibraryTest {
         books.add(book2);
         books.add(book3);
         books.add(book4);
-        ArrayList<String> menus = new ArrayList<String>();
-        menus.add("List of books");
 
-        library = new Library(books,menus);
+        ArrayList<Movie> movies = new ArrayList<Movie>();
+        Movie movie1 = new Movie("movie1","2018","ccq","1","001");
+        Movie movie2 = new Movie("movie2","2019","ccq","2","002");
+        movies.add(movie1);
+        movies.add(movie2);
+
+        library = new Library(menus,books,movies);
 
         library.checkOutBook("002");
         library.checkOutBook("003");
@@ -88,10 +96,9 @@ public class LibraryTest {
     }
 
     @Test
-    public void theOneWhereAllBooksAreShowed(){
-        library.displayAllBooks();
-        assertThat(getOutput(), containsString("JAVA"));
+    public void theOneSelectListOfMovie(){
+        library.displayAllMovies();
+        assertThat(getOutput(),containsString("movie1"));
     }
-
 
 }

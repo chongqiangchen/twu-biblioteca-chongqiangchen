@@ -6,12 +6,14 @@ import java.util.Scanner;
 public class Library {
     private ArrayList<String> menus;
     private ArrayList<Book> books;
+    private ArrayList<Movie> movies;
 
     private Scanner scanner = new Scanner(System.in);
 
-    public Library(ArrayList<Book> books,ArrayList<String> menus){
-        this.books = books;
+    public Library(ArrayList<String> menus,ArrayList<Book> books,ArrayList<Movie> movies){
         this.menus = menus;
+        this.books = books;
+        this.movies = movies;
     }
 
     public void start(){
@@ -19,11 +21,9 @@ public class Library {
     }
 
     public void displayMenu(){
-        int index = 0;
         String input;
         for (String menuItem:this.menus){
-            index++;
-            System.out.println(index + ". " + menuItem);
+            System.out.println(menuItem);
         }
         input = setString();
         handleMenu(input);
@@ -34,17 +34,22 @@ public class Library {
         if ("1".equals(input)) {
             displayAllBooks();
         }else if("2".equals(input)){
-            checkOutBook(setString());
+            displayAllMovies();
         }else if("3".equals(input)){
+            checkOutBook(setString());
+        }else if("4".equals(input)){
+            checkOutMovie(setString());
+        }else if("5".equals(input)){
             returnBackBook(setString());
-        } else if ("q".equals(input)) {
+        }else if("6".equals(input)){
+            returnBackMovie(setString());
+        } else if ("7".equals(input)) {
             System.out.println("Goodbye!");
             System.exit(0);
         } else {
             System.out.println("Please select a valid option!");
         }
     }
-
 
     public void displayAllBooks(){
         int index = 0;
@@ -76,6 +81,22 @@ public class Library {
 
         System.out.println("That is not a valid book to return.");
         return false;
+    }
+
+    public void displayAllMovies() {
+        int index = 0;
+        for (Movie movie:this.movies){
+            index++;
+            System.out.println(index + "、 "+movie.getMovieInfo());
+        }
+    }
+
+    public boolean checkOutMovie(String movieId){
+        return true;
+    }
+
+    public boolean returnBackMovie(String movieId){
+        return true;
     }
 
     private String setString(){

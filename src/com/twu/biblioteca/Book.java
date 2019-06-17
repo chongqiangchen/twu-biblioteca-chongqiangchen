@@ -13,7 +13,7 @@ public class Book extends LibraryItem {
     }
 
     public String getBookInfo(){
-        String formatBookInfo =title + ", " + author +"." + year;
+        String formatBookInfo =title + ", " + author +", " + year + ", " + getId();
         return formatBookInfo;
     }
 }
